@@ -31,10 +31,6 @@ function Navbar() {
       </li>
       <li>
        
-        <NavLink  to="/signup"> Signin</NavLink> 
-      </li>
-      <li>
-       
         <NavLink  to="/addjob"> Post A Job</NavLink> 
       </li>
       <li>
@@ -44,6 +40,18 @@ function Navbar() {
       <li>
        
         <NavLink  to="/viewapplications">Viwe Applications</NavLink> 
+      </li>
+      <li>
+       
+        <NavLink  to="/alljob">  All Job</NavLink> 
+      </li>
+      <li>
+       
+        <NavLink  to="/signup"> Signin</NavLink> 
+      </li>
+      <li>
+       
+        <NavLink  to="/sortdata"> sortdata</NavLink> 
       </li>
       
     </>

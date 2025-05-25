@@ -16,7 +16,7 @@ function HoteJobs() {
     //     setJobs(data);
     //   });
 
-    axios.get('http://localhost:4000/job')
+    axios.get('http://localhost:4000/job?sort=false')
     .then(res=> setJobs(res.data))
   },[]);
   return (

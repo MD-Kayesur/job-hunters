@@ -11,11 +11,11 @@ function AddJob() {
 const navigate = useNavigate()
 const handleAddJob=(e)=>{
     e.preventDefault()
-    const formData = new FormData(event.target);
+    const formData = new FormData(e.target);
     // object a convert
     const initialData = Object.fromEntries(formData.entries());
     const {min,max,curency,...newJob} = initialData
-    newJob.salaryRenge = {min,max,curency}
+    newJob.salaryRenge = {min:parseInt(min),max:parseInt(max),curency}
     // string convert to array
     newJob.jobtype = newJob.jobtype.split('\n')
     // newJob.requirment = newJob.requirment.split('\n')
@@ -147,7 +147,7 @@ fetch('http://localhost:4000/job',{
                 <div>
                 <label className="fieldset-label"> salary renge</label>
                 <input
-                  type="text"
+                  type="number"
                   name="min"
                   className="input"
                   placeholder=" min"
@@ -156,10 +156,10 @@ fetch('http://localhost:4000/job',{
                 <div>
                  
                 <input
-                  type="text"
+                  type="number"
                   name="max"
                   className="input"
-                  placeholder=" max"
+                  placeholder="max"
                 />
                 </div>
                 <div className="my-2">
@@ -175,6 +175,7 @@ fetch('http://localhost:4000/job',{
               <div>
                 <label className="fieldset-label">HR_email</label>
                 <input
+                readOnly
                   type="email"
                   name="email"
                   className="input"

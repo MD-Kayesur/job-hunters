@@ -16,7 +16,7 @@ function Signin() {
   const handleSignin = (e) => {
     e.preventDefault();
     if (signinUser) {
-      navigate('/')
+      // navigate('/')
      }
     const form = e.target;
     const email = form.email.value;
@@ -28,12 +28,13 @@ function Signin() {
       .then((result) => {
         console.log(result.user.email);
         const user = {email: result.user.email}
+        
         axios.post('http://localhost:4000/jwt', user, {withCredentials:true})
         .then(res=>{
           console.log(res.data);
           
         })
-        navigate(from);
+        // navigate(from);
       })
       .catch((error) => {
         console.log(error, "error");

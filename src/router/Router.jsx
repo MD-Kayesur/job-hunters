@@ -11,6 +11,8 @@ import MyApplication from "../pages/applications/MyApplication";
 import AddJob from "../pages/home/addJob";
 import MypostedJobs from "../pages/home/mypostedJobs";
 import ViweApplications from "../pages/home/ViweApplications";
+import AllJob from "../pages/home/AllJob";
+import SortedData from "../pages/home/sortedData";
 
  
 
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
         {
             path:'/',
             element:<Home></Home>
+        },
+        {
+            path:'/alljob',
+            element:<AllJob></AllJob>
         },
         {
             path:'/jobdetails/:id',
@@ -58,7 +64,12 @@ const router = createBrowserRouter([
         {
             path:'/signup',
             element:<Signin></Signin>
-        }
+        },
+        {
+            path:'/sortdata',
+            element:<SortedData></SortedData>,
+            loader:()=> fetch('http://localhost:4000/sortedData', {withCredentials : true})
+        },
       ]
     },
   ]);

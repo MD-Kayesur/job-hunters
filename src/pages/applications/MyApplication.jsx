@@ -14,6 +14,8 @@ function MyApplication() {
     fetch(`http://localhost:4000/job-application`)
       .then((res) => res.json())
       .then((data) => setJobs(data));
+    // axios.get(`http://localhost:4000/job-application`,{withcredentials:true})
+    // .then(res=> setJobs(res.data))
   }, [user.email]);
 
   const handleDelete = (id) => {
