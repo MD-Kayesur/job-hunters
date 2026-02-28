@@ -12,16 +12,18 @@ const JobApply: React.FC = () => {
   const handlerapply = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const linkdin = (form.elements.namedItem("linkdn") as HTMLInputElement).value;
-    const github = (form.elements.namedItem("github") as HTMLInputElement).value;
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const resume = (form.elements.namedItem("resume") as HTMLInputElement).value;
+    const coverNote = (form.elements.namedItem("coverNote") as HTMLTextAreaElement).value;
 
     const jobApplication = {
       job_id: id,
       applicant_email: user?.email,
-      linkdin,
-      github,
+      applicant_name: name,
+      email,
       resume,
+      coverNote,
     };
 
     fetch("http://localhost:4000/job-application", {
@@ -54,27 +56,29 @@ const JobApply: React.FC = () => {
         <div className="p-8">
           <form onSubmit={handlerapply} className="space-y-6">
             <div className="form-control">
-              <label className="label font-semibold text-gray-700">LinkedIn Profile URL</label>
+              <label className="label font-semibold text-gray-700">Full Name</label>
               <input
-                type="url"
-                name="linkdn"
+                type="text"
+                name="name"
+                defaultValue={user?.displayName || ""}
                 className="input input-bordered focus:border-[#3b82f6]"
-                placeholder="https://linkedin.com/in/username"
+                placeholder="John Doe"
                 required
               />
             </div>
             <div className="form-control">
-              <label className="label font-semibold text-gray-700">GitHub Profile URL</label>
+              <label className="label font-semibold text-gray-700">Email Address</label>
               <input
-                type="url"
-                name="github"
+                type="email"
+                name="email"
+                defaultValue={user?.email || ""}
                 className="input input-bordered focus:border-[#3b82f6]"
-                placeholder="https://github.com/username"
+                placeholder="john@example.com"
                 required
               />
             </div>
             <div className="form-control">
-              <label className="label font-semibold text-gray-700">Resume Link</label>
+              <label className="label font-semibold text-gray-700">Resume Link (URL)</label>
               <input
                 type="url"
                 name="resume"
@@ -82,6 +86,15 @@ const JobApply: React.FC = () => {
                 placeholder="Google Drive or Dropbox link"
                 required
               />
+            </div>
+            <div className="form-control">
+              <label className="label font-semibold text-gray-700">Cover Note</label>
+              <textarea
+                name="coverNote"
+                className="textarea textarea-bordered h-32 focus:border-[#3b82f6]"
+                placeholder="Why are you a good fit for this role?"
+                required
+              ></textarea>
             </div>
 
             <button className="btn w-full bg-[#4f46e5] hover:bg-[#4338ca] text-white py-4 rounded-xl text-lg font-bold shadow-lg transition-all">

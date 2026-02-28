@@ -24,12 +24,6 @@ function Navbar() {
     { name: "Browse Companies", path: "/" },
   ];
 
-  if (user) {
-    navLinks.push(
-      { name: "My Applications", path: "/myapplication" },
-      { name: "Post A Job", path: "/addjob" }
-    );
-  }
 
   return (
     <div className={`w-full z-50 ${isHome ? "absolute bg-transparent" : "bg-[#fdfdff] sticky top-0 border-b border-gray-100"}`}>

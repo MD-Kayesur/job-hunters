@@ -17,34 +17,32 @@ const ViweApplications: React.FC = () => {
           <table className="table w-full">
             <thead className="bg-gray-50 text-gray-700 font-bold uppercase text-xs tracking-wider">
               <tr>
-                <th className="py-5">#</th>
-                <th>Applicant Email</th>
-                <th>LinkedIn</th>
-                <th>GitHub</th>
+                <th className="py-5 text-center">#</th>
+                <th>Applicant Name</th>
+                <th>Email</th>
                 <th>Resume</th>
+                <th>Cover Note</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {data?.map((app: any, index: number) => (
                 <tr key={index} className="hover:bg-gray-50 transition-colors">
-                  <td className="py-4 text-gray-400 font-medium">{index + 1}</td>
+                  <td className="py-4 text-gray-400 font-medium text-center">{index + 1}</td>
                   <td>
-                    <span className="font-bold text-gray-900">{app?.applicant_email || "N/A"}</span>
+                    <span className="font-bold text-gray-900">{app?.applicant_name || "N/A"}</span>
                   </td>
                   <td>
-                    <a href={app?.linkdin} target="_blank" rel="noreferrer" className="text-blue-600 font-bold hover:underline">
-                      Profile
-                    </a>
+                    <span className="text-gray-600 font-medium">{app?.email || app?.applicant_email || "N/A"}</span>
                   </td>
                   <td>
-                    <a href={app?.github} target="_blank" rel="noreferrer" className="text-gray-800 font-bold hover:underline">
-                      Repo
+                    <a href={app?.resume} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-lg font-bold hover:bg-emerald-100 transition-colors border border-emerald-100">
+                      View CV
                     </a>
                   </td>
-                  <td>
-                    <a href={app?.resume} target="_blank" rel="noreferrer" className="text-emerald-600 font-bold hover:underline">
-                      CV Link
-                    </a>
+                  <td className="max-w-xs">
+                    <p className="text-gray-500 text-sm italic truncate" title={app?.coverNote}>
+                      {app?.coverNote || "No cover note provided"}
+                    </p>
                   </td>
                 </tr>
               ))}

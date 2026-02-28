@@ -53,7 +53,7 @@ const TrustedCompanies: React.FC = () => {
     ];
 
     return (
-        <section className="bg-white py-16 lg:py-24 border-b border-gray-50">
+        <section className="bg-white py-20 lg:py-24">
             <div className="container mx-auto px-6">
                 <div className="mb-14">
                     <p className="text-[#94a3b8] text-lg lg:text-xl font-medium">

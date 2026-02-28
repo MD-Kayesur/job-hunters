@@ -2,13 +2,15 @@ import React from "react";
 import Banner from "./banner";
 import HoteJobs from "./HoteJobs";
 import TrustedCompanies from "./TrustedCompanies";
+import JobCategory from "./JobCategory";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-[#fdfdff]">
+    <div className="bg-white">
       <Banner />
-      <TrustedCompanies />
-      <div className="container mx-auto px-6 py-12">
+      <div className="space-y-0">
+        <TrustedCompanies />
+        <JobCategory />
         <HoteJobs />
       </div>
     </div>
