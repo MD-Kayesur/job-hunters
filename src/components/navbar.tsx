@@ -75,14 +75,14 @@ function Navbar() {
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-8">
+              <div className="hidden md:flex items-center gap-8">
                 <Link
                   to="/signup"
                   className="font-bold text-[#4f46e5] hover:text-[#4338ca] transition-colors text-[16px]"
                 >
                   Login
                 </Link>
-                <div className="h-6 w-[1.5px] bg-gray-200 hidden md:block"></div>
+                <div className="h-6 w-[1.5px] bg-gray-200"></div>
                 <Link
                   to="/register"
                   className="bg-[#4f46e5] text-white px-8 py-3 rounded-xl font-bold hover:bg-[#4338ca] transition-all shadow-md text-[16px]"
@@ -93,8 +93,8 @@ function Navbar() {
             )}
 
             <div className="lg:hidden dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <label tabIndex={0} className="w-11 h-11 flex items-center justify-center rounded-full border border-gray-100 bg-white hover:bg-gray-50 cursor-pointer shadow-sm transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </label>
