@@ -1,15 +1,18 @@
-import { NavLink, useLoaderData } from "react-router-dom";
-import React from "react";
-import { Job } from "../../types";
+import { useParams } from "react-router-dom";
+import { useGetApplicationsByJobIdQuery } from "../../features/applications/applicationsApi";
 
 const ViweApplications: React.FC = () => {
-  const data = useLoaderData() as Job[];
+  const { job_id } = useParams();
+  const { data = [], isLoading } = useGetApplicationsByJobIdQuery(job_id || "");
+
+  if (isLoading) return <div className="text-center py-20">Loading...</div>;
+
 
   return (
     <div className="py-10 max-w-6xl mx-auto px-6">
-      <div className="mb-10">
-        <h2 className="text-4xl font-bold text-[#1a1a1a]">Job Applications</h2>
-        <p className="text-gray-500 mt-2">Total applications received: {data?.length || 0}</p>
+      <div className="mb-6 md:mb-10">
+        <h2 className="text-2xl md:text-4xl font-bold text-gray-900 leading-tight">Job Applications</h2>
+        <p className="text-gray-500 mt-2 text-sm md:text-base">Total applications received: {data?.length || 0}</p>
       </div>
 
       <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">

@@ -1,28 +1,29 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import AuthContext from "../../assets/context/AuthContext";
-import axios from "axios";
 import Swal from "sweetalert2";
 import React from "react";
-import { Job } from "../../types";
+import { useGetApplicationsQuery, useDeleteApplicationMutation } from "../../features/applications/applicationsApi";
 
 const MyApplication: React.FC = () => {
   const auth = useContext(AuthContext);
   const user = auth?.user;
-  const [jobs, setJobs] = useState<Job[]>([]);
 
-  useEffect(() => {
-    if (user?.email) {
-      fetch(`http://localhost:4000/job-application`)
-        .then((res) => res.json())
-        .then((data) => setJobs(data));
-    }
-  }, [user?.email]);
+  // Use RTK Query hooks
+  const { data: jobs = [], isLoading } = useGetApplicationsQuery(user?.email || "");
+  const [deleteApplication] = useDeleteApplicationMutation();
 
   const handleDelete = (id: string) => {
-    axios.delete(`http://localhost:4000/job-application/${id}`)
-      .then((result) => {
-        if (result.data.deletedCount > 0) {
-          setJobs((prevJob) => prevJob.filter(job => job._id !== id));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will remove this application",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3b82f6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteApplication(id).unwrap().then(() => {
           Swal.fire({
             title: "Deleted!",
             text: "Application has been removed.",
@@ -30,9 +31,13 @@ const MyApplication: React.FC = () => {
             timer: 2000,
             showConfirmButton: false
           });
-        }
-      });
+        });
+      }
+    });
   };
+
+  if (isLoading) return <div className="text-center py-20 font-bold">Loading...</div>;
+
 
   return (
     <div className="py-10 max-w-6xl mx-auto px-6">
@@ -79,7 +84,7 @@ const MyApplication: React.FC = () => {
                   </td>
                   <td>
                     <button
-                      onClick={() => handleDelete(job._id)}
+                      onClick={() => job._id && handleDelete(job._id)}
                       className="btn btn-ghost text-red-500 hover:bg-red-50 hover:text-red-700 font-bold"
                     >
                       Remove

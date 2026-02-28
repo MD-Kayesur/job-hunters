@@ -19,7 +19,7 @@ const AllJob: React.FC = () => {
   }
 
   return (
-    <div className="py-10">
+    <div className="container mx-auto px-6 py-10">
       <div className="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6">
         <h2 className="text-3xl lg:text-4xl font-extrabold text-[#1a1a1a]">All Available Jobs</h2>
         <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">

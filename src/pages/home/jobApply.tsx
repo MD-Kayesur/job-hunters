@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import UseAuth from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
 const JobApply: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const auth = UseAuth();
+  const auth = useAuth();
   const user = auth?.user;
   const navigate = useNavigate();
 

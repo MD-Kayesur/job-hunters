@@ -29,3 +29,14 @@ export interface Job {
     company_logo: string;
     hr_email: string;
 }
+
+export interface JobApplication {
+    _id?: string;
+    job_id: string;
+    applicant_email: string;
+    title?: string;
+    location?: string;
+    company?: string;
+    company_logo?: string;
+    category?: string;
+}
