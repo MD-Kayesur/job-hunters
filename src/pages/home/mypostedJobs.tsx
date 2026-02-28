@@ -1,25 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import AuthContext from "../../assets/context/AuthContext";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import Swal from "sweetalert2";
 import React from "react";
-import { Job } from "../../types";
+import { useGetJobsQuery, useDeleteJobMutation } from "../../features/jobs/jobsApi";
+
 
 const MypostedJobs: React.FC = () => {
-  const [jobs, setJobs] = useState<Job[]>([]);
   const auth = useContext(AuthContext);
   const user = auth?.user;
 
-  useEffect(() => {
-    if (user?.email) {
-      fetch(`http://localhost:4000/job?email=${user.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setJobs(data);
-        });
-    }
-  }, [user?.email]);
+  // Use RTK Query hooks
+  const { data: jobs = [], isLoading } = useGetJobsQuery(user?.email || "");
+  const [deleteJob] = useDeleteJobMutation();
 
   const deleteHanler = (id: string) => {
     Swal.fire({
@@ -32,16 +25,20 @@ const MypostedJobs: React.FC = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:4000/job/${id}`)
-          .then(res => {
-            if (res.data.deletedCount > 0) {
-              setJobs((prevJob) => prevJob.filter(job => job._id !== id));
-              Swal.fire("Deleted!", "Your job post has been deleted.", "success");
-            }
-          });
+        deleteJob(id).unwrap().then(() => {
+          Swal.fire("Deleted!", "Your job post has been deleted.", "success");
+        }).catch(err => {
+          console.error(err);
+          Swal.fire("Error", "Something went wrong", "error");
+        });
       }
     });
   };
+
+  if (isLoading) {
+    return <div className="text-center py-20">Loading...</div>;
+  }
+
 
   return (
     <div className="py-10 max-w-6xl mx-auto px-6">

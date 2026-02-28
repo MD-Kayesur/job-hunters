@@ -20,8 +20,9 @@ function Navbar() {
   };
 
   const navLinks = [
-    { name: "Find Jobs", path: "/alljob" },
+    { name: "All Jobs", path: "/alljob" },
     { name: "Browse Companies", path: "/" },
+    ...(user ? [{ name: "Admin Panel", path: "/admin" }] : []),
   ];
 
 

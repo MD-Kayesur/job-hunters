@@ -4,7 +4,6 @@ import Home from "../pages/home/Home";
 import Register from "../components/Register";
 import Signin from "../components/Signin";
 import JobDEtails from "../pages/home/JobDEtails";
-import { param } from "motion/react-client";
 import PrivetRout from "./PrivetRout";
 import JobApply from "../pages/home/jobApply";
 import MyApplication from "../pages/applications/MyApplication";
@@ -14,7 +13,12 @@ import ViweApplications from "../pages/home/ViweApplications";
 import AllJob from "../pages/home/AllJob";
 import SortedData from "../pages/home/sortedData";
 
-
+// Admin Imports
+import AdminLayout from "../layouts/AdminLayout";
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminAddJob from "../pages/admin/AdminAddJob";
+import AdminPostedJobs from "../pages/admin/AdminPostedJobs";
+import AdminUpdateJob from "../pages/admin/AdminUpdateJob";
 
 const router = createBrowserRouter([
     {
@@ -54,7 +58,6 @@ const router = createBrowserRouter([
             {
                 path: '/viewapplications/:job_id',
                 element: <PrivetRout><ViweApplications /></PrivetRout>,
-                loader: ({ params }) => fetch(`http://localhost:4000/job-application/${params.job_id}`)
             },
             {
                 path: '/addjob',
@@ -71,6 +74,32 @@ const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path: "/admin",
+        element: <PrivetRout><AdminLayout /></PrivetRout>,
+        children: [
+            {
+                path: "",
+                element: <AdminDashboard />
+            },
+            {
+                path: "add-job",
+                element: <AdminAddJob />
+            },
+            {
+                path: "posted-jobs",
+                element: <AdminPostedJobs />
+            },
+            {
+                path: "edit-job/:id",
+                element: <AdminUpdateJob />
+            },
+            {
+                path: "all-applications",
+                element: <ViweApplications />
+            }
+        ]
+    }
 ]);
 
-export default router
+export default router;
