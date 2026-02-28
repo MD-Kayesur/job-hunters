@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@layer base {
+
+    button,
+    .btn,
+    a,
+    select,
+    input[type="submit"],
+    input[type="button"],
+    [role="button"],
+    [onClick] {
+        @apply cursor-pointer;
+    }
+}

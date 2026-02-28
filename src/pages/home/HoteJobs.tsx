@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useGetJobsQuery } from "../../features/jobs/jobsApi";
 import HotjobCard from "./hotjobCard";
-import axios from "axios";
-import { Job } from "../../types";
+import React from "react";
 
 function HoteJobs() {
-  const [jobs, setJobs] = useState<Job[]>([]);
+  const { data: jobs = [], isLoading } = useGetJobsQuery(undefined);
 
-  useEffect(() => {
-    axios.get('http://localhost:4000/job?sort=false')
-      .then(res => setJobs(res.data))
-      .catch(err => console.error(err));
-  }, []);
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-20 min-h-[400px]">
+        <span className="loading loading-ring loading-lg text-[#3b82f6]"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="py-24 bg-white">
