@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
 import {
   createUserWithEmailAndPassword,
@@ -7,30 +7,35 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  User,
 } from "firebase/auth";
 import auth from "../../firebase/firebase.init";
+import { AuthContextType } from "../../types";
 
 const provider = new GoogleAuthProvider();
 
-function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+function AuthProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<User | null>(null);
   const [loding, setLoading] = useState(true);
 
   // signoin with google
-
   const signingoogle = () => {
     setLoading(true);
     return signInWithPopup(auth, provider);
   };
 
   // register or signup
-  const createUsers = (email, password) => {
+  const createUsers = (email: string, password: string) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   // signin or login
-  const signinUser = (email, password) => {
+  const signinUser = (email: string, password: string) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -50,13 +55,10 @@ function AuthProvider({ children }) {
 
     return () => {
       unsubscribe();
-      if (user) {
-        alert("we hace");
-      }
     };
   }, []);
 
-  const authInfo = {
+  const authInfo: AuthContextType = {
     user,
     loding,
     createUsers,
@@ -66,9 +68,9 @@ function AuthProvider({ children }) {
   };
 
   return (
-    <div>
-      <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-    </div>
+    <AuthContext.Provider value={authInfo}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 
